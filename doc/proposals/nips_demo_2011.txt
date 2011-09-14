@@ -1,0 +1,89 @@
+NIPS 2011 Demonstration Proposal for *Theano: Easy GPU Meta-Programming in Python*
+==================================================================================
+
+Technology
+----------
+
+*What technology does your demonstration show? What is novel about it? Provide links to any related published material.*
+
+Theano is a Python library that allows you to define, optimize, and evaluate mathematical expressions involving multi-dimensional arrays efficiently.
+
+ * http://deeplearning.net/software/theano/
+ * http://deeplearning.net/tutorial/
+
+The two key features for the ML audience are:
+ 
+ * behind-the-scenes GPU meta-programming
+ * automatic symbolic differentiation
+
+Theano makes many deep learning algorithms more readable and faster.  It is also useful for recurrent algorithms, particle filtering, sparse coding, and software for Bayesian inference is in development.
+
+Experience
+----------
+
+*What is the live and interactive user experience, i.e. what do the users see and do?*
+
+The experience is to get a feel for Theano.  If we can get Nicolas Pinto's 16 GPU monster computer to Spain, then we'll set it up on the demonstration table, and
+
+ - let people log into it and run Theano programs on the GPUs.
+ - do code walk-throughs on the projector
+ - do live-coding on the projector
+
+- talk to people about how Theano works and what it can do
+
+- help people get Theano running on their laptops
+
+If we can't get that computer to Spain, then we'll just have to stream a video of it running back here in Cambridge, and leave people to use their imaginations.
+
+Readiness
+---------
+
+*What is the present state of completion of the demo, i.e. could you show it today, next week, next month? What still needs to be done?*
+
+The core library is ready, it has been relatively stable for over a year.
+
+We have a library of sample programs that demonstrate various learning algorithms, and it will continue to grow until December. That library started with the deep learning tutorials, and was extended for the CIFAR NCAP Summer School this past August. We plan to extend it further and raise the probability that if someone comes to the table and asks about how to algorithm X, we'll have it or something similar to show.
+
+Equipment
+---------
+
+*Equipment you will bring. e.g. laptop, robot.*
+
+- laptop (s)
+- maybe a 16 GPU Monster computer
+- maybe a projector
+
+
+External URI
+------------
+
+*URL for your demo*
+
+http://deeplearning.net/software/theano/
+
+Demonstration Table
+-------------------
+
+*Does your demo require a complimentary table?* Yes
+
+Poster Board
+------------
+
+*Does your demo require a complimentary 190cmx90cm poster board?* Yes
+
+Power Strip
+-----------
+
+*Does your demo require a complimentary a power strip?* Yes
+
+Special Needs
+-------------
+
+*e.g. robot arena (how large?), multiple poster panels, special lighting requirements (room illumination is directly overhead with only about 50 lux illuminance), video projector, monitor. Please be as specific as possible. You will be charged for the cost of rented equipment, but the final decision regarding equipment may be made after acceptance.*
+
+- a big monitor would be nice, depending on cost
+- we need a projector, but we could potentially bring our own if procuring one on site is expensive or difficult.
+- we would like to bring over the custom-made GPU supercomputer that Nicolas Pinto
+  designed and built (http://pinto.scripts.mit.edu/Research/Monster16GPU) but we don't 
+  yet know if we can transport it from the US.  If we cannot, then we will set up a 
+  live feed to just show it running here in Cambridge.
