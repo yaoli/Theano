@@ -12,28 +12,34 @@ Theano is a Python library that allows you to define, optimize, and evaluate mat
  * http://deeplearning.net/tutorial/
 
 The two key features for the ML audience are:
- 
+
  * behind-the-scenes GPU meta-programming
  * automatic symbolic differentiation
 
-Theano makes many deep learning algorithms more readable and faster.  It is also useful for recurrent algorithms, particle filtering, sparse coding, and software for Bayesian inference is in development.
+Theano makes many learning algorithms more readable and faster than would be the
+case in competing libraries.  Theano is primarily useful for recurrent algorithms,
+particle filtering, sparse coding.  An extension for Bayesian inference is in
+development.
+
 
 Experience
 ----------
 
 *What is the live and interactive user experience, i.e. what do the users see and do?*
 
-The experience is to get a feel for Theano. We will have experts on hand to
- * do code walk-throughs of simple demonstrations of how to use Theano, 
- * do live-coding on the projector,
- * set up Theano on their laptops,
- * and simply answer questions.
+The experience is to get a feel for Theano. We will have Theano experts on hand
+to:
+ * walk visitors through simple Python programs illustrating Theano
+ * live-code on the projector
+ * help visitors to set up Theano on their laptops or remote workstations
+ * answer general questions about the Theano and related software.
 
-We will also have a GPU-powered machine set up so that people can try logging in by ssh
-and running some sample python programs. If we can get Nicolas Pinto's 16 GPU monster computer to Spain,
-then we'll set it up on the demonstration table and let people log into it by ssh.
-If we cannot transport that computer to spain, then we will set up a monitor with a live video stream of it running
-back here in Cambridge, and they can ssh into it just the same.
+We will have a GPU-powered machine set up for visitors to use by ssh.
+If we can transport Nicolas Pinto's 16 GPU monster computer to Spain,
+then we will set it up on the demonstration table (it is a sight to behold)
+but if we cannot transport it to Spain for reasonable effort and expense, then
+we will show it running remotely with a video stream for fun.
+
 
 
 Readiness
