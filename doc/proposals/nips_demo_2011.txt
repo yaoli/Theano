@@ -35,10 +35,12 @@ to:
  * answer general questions about the Theano and related software.
 
 We will have a GPU-powered machine set up for visitors to use by ssh.
-If we can transport Nicolas Pinto's 16 GPU monster computer to Spain,
+If we can transport Nicolas Pinto's 16 GPU monster computer [1] to Spain,
 then we will set it up on the demonstration table (it is a sight to behold)
 but if we cannot transport it to Spain for reasonable effort and expense, then
 we will show it running remotely with a video stream for fun.
+
+[1]: http://pinto.scripts.mit.edu/Research/Monster16GPU
 
 
 
