@@ -16,10 +16,7 @@ The two key features for the ML audience are:
  * behind-the-scenes GPU meta-programming
  * automatic symbolic differentiation
 
-Theano makes many learning algorithms more readable and faster than would be the
-case in competing libraries.  Theano is primarily useful for recurrent algorithms,
-particle filtering, sparse coding.  An extension for Bayesian inference is in
-development.
+Theano makes many learning algorithms more readable and faster than would be the case in competing libraries.  Theano is primarily useful for recurrent algorithms, particle filtering, sparse coding.  An extension for Bayesian inference is in development.
 
 
 Experience
@@ -27,18 +24,13 @@ Experience
 
 *What is the live and interactive user experience, i.e. what do the users see and do?*
 
-The experience is to get a feel for Theano. We will have Theano experts on hand
-to:
+The experience is to get a feel for Theano. We will have Theano experts on hand to:
  * walk visitors through simple Python programs illustrating Theano
  * live-code on the projector
  * help visitors to set up Theano on their laptops or remote workstations
  * answer general questions about the Theano and related software.
 
-We will have a high-end multi-GPU machine set up for visitors to use by ssh.
-If we can transport Nicolas Pinto's 16 GPU monster computer [1] to Spain,
-then we will set it up on the demonstration table (it is a sight to behold)
-but if we cannot transport it to Spain for reasonable effort and expense, then
-we will show it running remotely with a video stream for fun.
+We will have a high-end multi-GPU machine set up for visitors to use by ssh.  If we can transport Nicolas Pinto's 16 GPU monster computer [1] to Spain, then we will set it up on the demonstration table (it is a sight to behold) but if we cannot transport it to Spain for reasonable effort and expense, then we will show it running remotely with a video stream for fun.
 
 [1]: http://pinto.scripts.mit.edu/Research/Monster16GPU
 
@@ -51,10 +43,7 @@ Readiness
 
 The core library is ready, it has been relatively stable for over a year.
 
-We have a library of sample programs that demonstrate various learning algorithms,
-and it will continue to grow until December.
-That library started with the deep learning tutorials, and was extended for the CIFAR NCAP Summer School
-this past August. We will extend that library though the fall.
+We have a library of sample programs that demonstrate various learning algorithms, and it will continue to grow until December.  That library started with the deep learning tutorials, and was extended for the CIFAR NCAP Summer School this past August. We will extend that library though the fall.
 
 Equipment
 ---------
@@ -93,9 +82,7 @@ Special Needs
 
 *e.g. robot arena (how large?), multiple poster panels, special lighting requirements (room illumination is directly overhead with only about 50 lux illuminance), video projector, monitor. Please be as specific as possible. You will be charged for the cost of rented equipment, but the final decision regarding equipment may be made after acceptance.*
 
- * a big monitor would be nice, depending on cost
- * we need a projector, but we could potentially bring our own if procuring one on site is expensive or difficult.
- * we would like to bring over the custom-made GPU supercomputer that Nicolas Pinto
-   designed and built (http://pinto.scripts.mit.edu/Research/Monster16GPU) but we don't 
-   yet know if we can transport it from the US.  If we cannot, then we will set up a 
-   live feed to just show it running here in Cambridge.
+We need a projector, but we could potentially bring our own if procuring one on site is expensive or difficult.
+
+We would like to bring over the custom-made GPU supercomputer that Nicolas Pinto designed and built (http://pinto.scripts.mit.edu/Research/Monster16GPU) but we don't yet know if we can transport it from the US.  If we cannot, then we will set up a live feed to just show it running here in Cambridge, in which case an LCD monitor would be nice depending on the cost.
+
