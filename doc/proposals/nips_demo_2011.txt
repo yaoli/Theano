@@ -23,17 +23,18 @@ Experience
 
 *What is the live and interactive user experience, i.e. what do the users see and do?*
 
-The experience is to get a feel for Theano.  If we can get Nicolas Pinto's 16 GPU monster computer to Spain, then we'll set it up on the demonstration table, and
+The experience is to get a feel for Theano. We will have experts on hand to
+ * do code walk-throughs of simple demonstrations of how to use Theano, 
+ * do live-coding on the projector,
+ * set up Theano on their laptops,
+ * and simply answer questions.
 
- - let people log into it and run Theano programs on the GPUs.
- - do code walk-throughs on the projector
- - do live-coding on the projector
+We will also have a GPU-powered machine set up so that people can try logging in by ssh
+and running some sample python programs. If we can get Nicolas Pinto's 16 GPU monster computer to Spain,
+then we'll set it up on the demonstration table and let people log into it by ssh.
+If we cannot transport that computer to spain, then we will set up a monitor with a live video stream of it running
+back here in Cambridge, and they can ssh into it just the same.
 
-- talk to people about how Theano works and what it can do
-
-- help people get Theano running on their laptops
-
-If we can't get that computer to Spain, then we'll just have to stream a video of it running back here in Cambridge, and leave people to use their imaginations.
 
 Readiness
 ---------
@@ -42,16 +43,19 @@ Readiness
 
 The core library is ready, it has been relatively stable for over a year.
 
-We have a library of sample programs that demonstrate various learning algorithms, and it will continue to grow until December. That library started with the deep learning tutorials, and was extended for the CIFAR NCAP Summer School this past August. We plan to extend it further and raise the probability that if someone comes to the table and asks about how to algorithm X, we'll have it or something similar to show.
+We have a library of sample programs that demonstrate various learning algorithms,
+and it will continue to grow until December.
+That library started with the deep learning tutorials, and was extended for the CIFAR NCAP Summer School
+this past August. We will extend that library though the fall.
 
 Equipment
 ---------
 
 *Equipment you will bring. e.g. laptop, robot.*
 
-- laptop (s)
-- maybe a 16 GPU Monster computer
-- maybe a projector
+ * laptop (s)
+ * maybe a 16 GPU Monster computer
+ * maybe a projector
 
 
 External URI
@@ -81,9 +85,9 @@ Special Needs
 
 *e.g. robot arena (how large?), multiple poster panels, special lighting requirements (room illumination is directly overhead with only about 50 lux illuminance), video projector, monitor. Please be as specific as possible. You will be charged for the cost of rented equipment, but the final decision regarding equipment may be made after acceptance.*
 
-- a big monitor would be nice, depending on cost
-- we need a projector, but we could potentially bring our own if procuring one on site is expensive or difficult.
-- we would like to bring over the custom-made GPU supercomputer that Nicolas Pinto
-  designed and built (http://pinto.scripts.mit.edu/Research/Monster16GPU) but we don't 
-  yet know if we can transport it from the US.  If we cannot, then we will set up a 
-  live feed to just show it running here in Cambridge.
+ * a big monitor would be nice, depending on cost
+ * we need a projector, but we could potentially bring our own if procuring one on site is expensive or difficult.
+ * we would like to bring over the custom-made GPU supercomputer that Nicolas Pinto
+   designed and built (http://pinto.scripts.mit.edu/Research/Monster16GPU) but we don't 
+   yet know if we can transport it from the US.  If we cannot, then we will set up a 
+   live feed to just show it running here in Cambridge.
