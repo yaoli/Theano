@@ -342,7 +342,7 @@ class ProfileStats(object):
         es += ['   %2s ']
 
         hs += ['<#call>']
-        es += ['  %4d  ']
+        es += ['  %5d  ']
 
         hs += ['<#apply>']
         es += ['  %4d  ']
@@ -362,9 +362,12 @@ class ProfileStats(object):
                 continue
             tot += t
             ftot = tot * 100 / local_time
+            # Remove the useless start and end of the class name:
+            # "<class 'theano.sandbox.cuda.blas.GpuDot22'>" -> "theano.sandbox.cuda.blas.GpuDot22"
+            class_name = str(a)[8:-2][:maxlen]
             print >> file, format_str % (f, ftot, t, t / nb_call,
                                          impl, nb_call,
-                                         nb_apply, str(a)[:maxlen])
+                                         nb_apply, class_name)
             # While this carries over less information, it is arranged such
             # that it way more readeable that the previous output of the
             # profiler
@@ -787,8 +790,8 @@ class ProfileStats(object):
         if self.variable_shape or self.variable_strides:
             self.summary_memory(file, n_apply_to_print)
         if self.optimizer_profile:
-            print "Optimizer Profile"
-            print "-----------------"
+            print >> file, "Optimizer Profile"
+            print >> file, "-----------------"
             self.optimizer_profile[0].print_profile(file,
                                                     self.optimizer_profile[1])
 
@@ -882,9 +885,9 @@ if 0: # old code still to be ported from ProfileMode
         print 'Theano fct call %.3fs %.1f%%' % (total_fct_time,
                                                 total_fct_time / total_time *
                                                 100)
-        print '   Theano Op time (included in fct call, Time spent running thunks) %.3fs %.1f%%(of total) %.1f%%(of fct call)' % (local_time,
-                                                                                                                                  local_time / total_time * 100,
-                                                                                                                                  time_pr_in_fct)
+        print ('   Theano Op time (included in fct call, Time spent '
+               'running thunks) %.3fs %.1f%%(of total) %.1f%%(of fct call)' %
+               (local_time, local_time / total_time * 100, time_pr_in_fct))
         print 'Other time since import %.3fs %.1f%%'%(other_time,other_time/total_time*100)
         print '%i Theano fct call, %.3fs per call'%(total_fct_call, time_per_call)
 

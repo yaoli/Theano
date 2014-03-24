@@ -1198,7 +1198,11 @@ class GpuCAReduce(GpuOp):
                     n_threads.z += 1;
                 else
                     break;
-            }""" % locals()
+            }
+            //Maximum for Fermi GPU on that dimensions.
+            n_threads.z = std::min(n_threads.z, (unsigned)64);
+
+        """ % locals()
 
         if len(self.reduce_mask) == 2:
             threads_y = ''
@@ -1509,6 +1513,8 @@ class GpuCAReduce(GpuOp):
                 n_threads.z += 1;
             }
             n_threads.z -= 1;
+            //Maximum for Fermi GPU on that dimensions.
+            n_threads.z = std::min(n_threads.z, (unsigned)64);
 
             dim3 n_blocks(1,1,1);
             %(makecall)s
@@ -1605,7 +1611,7 @@ class GpuCAReduce(GpuOp):
         """ % locals()
 
     def c_code_cache_version_apply(self, node):
-        version = [8]  # the version corresponding to the c code in this Op
+        version = [9]  # the version corresponding to the c code in this Op
 
         # now we insert versions for the ops on which we depend...
         scalar_node = Apply(self.scalar_op,
@@ -2794,20 +2800,7 @@ class GpuIncSubtensor(tensor.IncSubtensor, GpuOp):
         """
         return """CudaNdarray_CopyFromCudaNdarray(%(view)s, %(source)s)""" % locals()
 
-    def set_view_base(self, x, fail):
-        return """
-        //Set the base only now
-
-        if(CudaNdarray_set_device_data(zview, CudaNdarray_DEV_DATA(zview),
-                                    %(x)s)){
-            PyErr_Format(PyExc_RuntimeError,
-                         "GpuSubtensor is not able to set"
-                         " the base of the view array");
-            Py_XDECREF(zview);
-            %(fail)s;
-        }""" % locals()
-
-    def add_to_zview(self, x, fail):
+    def add_to_zview(self, name, x, fail):
 
         return """
         PyObject * add_result = CudaNdarray_inplace_add((PyObject *) zview,
