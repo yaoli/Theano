@@ -354,6 +354,7 @@ def Lop(f, wrt, eval_points, consider_constant=None,
 def grad(cost, wrt, consider_constant=None,
          disconnected_inputs='raise', add_names=True,
          known_grads=None, return_disconnected='zero'):
+    
     """
     :type cost: Scalar (0-dimensional) Variable.
         May optionally be None if known_grads is provided.
@@ -432,10 +433,10 @@ def grad(cost, wrt, consider_constant=None,
         outputs.append(cost)
     if known_grads is not None:
         outputs.extend(known_grads.keys())
-
+    
     var_to_app_to_idx = _populate_var_to_app_to_idx(
         outputs, wrt, consider_constant)
-
+    
     # build a dict mapping var to the gradient of cost with respect to var
     grad_dict = OrderedDict()
 
@@ -920,7 +921,7 @@ def _populate_grad_dict(var_to_app_to_idx,
                                 "Got a gradient of shape " +
                                 str(o_shape) + " on an output of shape " +
                                 str(g_shape))
-
+                
                 input_grads = node.op.grad(inputs, new_output_grads)
 
                 if input_grads is None:
@@ -1059,7 +1060,7 @@ def _populate_grad_dict(var_to_app_to_idx,
                 node_to_idx = var_to_app_to_idx[var]
                 for node in node_to_idx:
                     for idx in node_to_idx[node]:
-
+                        
                         term = access_term_cache(node)[idx]
 
                         if not isinstance(term, gof.Variable):
@@ -1101,7 +1102,7 @@ def _populate_grad_dict(var_to_app_to_idx,
         return grad_dict[var]
 
     rval = [access_grad_cache(elem) for elem in wrt]
-
+    
     return rval
 
 

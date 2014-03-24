@@ -831,7 +831,6 @@ class VM_Linker(link.LocalLinker):
         fgraph = self.fgraph
         order = self.schedule(fgraph)
         no_recycling = self.no_recycling
-
         input_storage, output_storage, storage_map = link.map_storage(
                 fgraph, order, input_storage, output_storage)
         compute_map = {}
@@ -839,8 +838,12 @@ class VM_Linker(link.LocalLinker):
             compute_map[k] = [k.owner is None]
 
         thunks = []
-        for node in order:
+        for i, node in enumerate(order):
             try:
+                op_info = node.op.__class__
+                #sys.stdout.write('\rLinker is compiling %5d/%5d nodes (calling op.make_thunk): %s'%(i+1,len(order),op_info))
+                #sys.stdout.flush()
+                print '\rLinker is compiling %5d/%5d nodes (calling op.make_thunk): %s'%(i+1,len(order),op_info)
                 thunks.append(node.op.make_thunk(node,
                                                  storage_map,
                                                  compute_map,
@@ -849,6 +852,7 @@ class VM_Linker(link.LocalLinker):
                 e.args = ("The following error happened while"
                           " compiling the node", node, "\n") + e.args
                 raise
+        print
         for node, thunk in zip(order, thunks):
             thunk.inputs = [storage_map[v] for v in node.inputs]
             thunk.outputs = [storage_map[v] for v in node.outputs]

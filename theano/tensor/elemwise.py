@@ -365,7 +365,6 @@ PyArray_SetBaseObject(%(res)s, (PyObject*)%(basename)s);
 
             if 0:
                 sys.exit()
-
         return full_code % dict(locals(), **sub)
 
     def c_code_cache_version(self):
@@ -1141,7 +1140,7 @@ class Elemwise(Op):
     def c_headers(self):
         return ['<vector>', '<algorithm>']
 
-    def c_support_code(self):
+    def c_support_code(self):  
         return self.scalar_op.c_support_code()
 
     def c_support_code_apply(self, node, nodename):

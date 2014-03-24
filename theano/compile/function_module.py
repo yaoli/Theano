@@ -1019,6 +1019,7 @@ class FunctionMaker(object):
         try:
             theano.config.compute_test_value = theano.config.compute_test_value_opt
             gof.Op.add_stack_trace_on_call = False
+            print 'graph size before optimization: %d'%(len(fgraph.apply_nodes))
             start_optimizer = time.time()
             optimizer_profile = optimizer(fgraph)
             end_optimizer = time.time()
@@ -1030,7 +1031,8 @@ class FunctionMaker(object):
                 if theano.config.profile_optimizer:
                     profile.optimizer_profile = (optimizer, optimizer_profile)
             _logger.debug('Optimizing took %f seconds', opt_time)
-
+            print 'graph size after optimization: %d'%(len(fgraph.apply_nodes))
+            print 'optimization took %.2f sec'%(opt_time)
             #Add deep copy to respect the memory interface
             insert_deepcopy(fgraph, inputs, outputs + additional_outputs)
         finally:
@@ -1048,6 +1050,7 @@ class FunctionMaker(object):
         if no_borrow:
             self.linker = linker.accept(fgraph, no_recycling=infer_reuse_pattern(fgraph, no_borrow))
         else:
+            
             self.linker = linker.accept(fgraph)
 
         if hasattr(linker, 'accept_var_updates'):
@@ -1064,7 +1067,6 @@ class FunctionMaker(object):
         self.mode = mode
         self.accept_inplace = accept_inplace
         self.function_builder = function_builder
-
         self.required = [(i.value is None) for i in self.inputs]
         self.refeed = [
                 (i.value is not None and
@@ -1072,7 +1074,7 @@ class FunctionMaker(object):
                  i.update is None)
                 for i in self.inputs
         ]
-
+        
     def _check_unused_inputs(self, inputs, outputs, on_unused_input):
         if on_unused_input is None:
             on_unused_input = theano.config.on_unused_input
@@ -1121,7 +1123,6 @@ class FunctionMaker(object):
                     acts as initialization.
         trustme -> disables some exceptions, used internally
         """
-
         if input_storage is None:
             input_storage = [None] * len(self.inputs)
         input_storage_lists = []  # list of independent one-element lists, will be passed to the linker
@@ -1178,12 +1179,13 @@ class FunctionMaker(object):
                 storage))
 
         # Get a function instance
+        print 'compiling the optimized graph'
         start_linker = time.time()
         _fn, _i, _o = self.linker.make_thunk(input_storage=input_storage_lists)
         end_linker = time.time()
-
         linker_time = end_linker - start_linker
         _logger.debug('Linker took %f seconds', linker_time)
+        print 'Linker took %.2f sec'%linker_time
         self.mode.linker_time += linker_time
         if self.profile:
             self.profile.linker_time += linker_time

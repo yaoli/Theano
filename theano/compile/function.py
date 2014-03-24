@@ -196,6 +196,10 @@ def function(inputs, outputs=None, mode=None, updates=None, givens=None,
                                    (hasattr(i, 'mutable') and i.mutable))):
             check_for_aliased_inputs = True
 
+    if name is not None:
+        print '########################################'
+        print 'processing theano function: %s'%name
+        print '########################################'
     if uses_In or uses_tuple:
         # we must use old semantics in this case.
         if profile:

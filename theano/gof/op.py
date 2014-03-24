@@ -624,7 +624,7 @@ class Op(utils.object2, PureOp, CLinkerOp):
                 logger.debug('Falling back on perform')
 
         # condition: either there was no c_code, or it failed
-
+        print 'WARNING: %s does not have C implementation'%node.op.__class__
         p = node.op.perform
         # default arguments are stored in the closure of `rval`
 
@@ -633,7 +633,7 @@ class Op(utils.object2, PureOp, CLinkerOp):
             for o in node.outputs:
                 compute_map[o][0] = True
             return r
-
+        
         rval.inputs = node_input_storage
         rval.outputs = node_output_storage
         rval.perform = p

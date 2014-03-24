@@ -1201,6 +1201,7 @@ class CLinker(link.Linker):
             - it may yield other intermediate outputs in-between if needed
               in the future (but this is not currently the case)
         """
+
         if location is None:
             location = cmodule.dlimport_workdir(config.compiledir)
         mod = self.build_dynamic_module()
