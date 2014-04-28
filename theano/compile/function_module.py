@@ -1199,7 +1199,7 @@ class FunctionMaker(object):
         linker_time = end_linker - start_linker
         _logger.debug('Linker took %f seconds', linker_time)
         print 'Linker took %.2f sec'%linker_time
-        self.mode.linker_time += linker_time
+        #self.mode.linker_time += linker_time
 
         if self.profile:
             self.profile.linker_time += linker_time
