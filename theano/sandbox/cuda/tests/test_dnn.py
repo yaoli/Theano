@@ -1222,7 +1222,7 @@ class TestGpuCorr3dMM_to_GpuDnnConv3d(unittest.TestCase):
         assert numpy.allclose(numpy.asarray(out1[0]), numpy.asarray(out2[0]))
         assert numpy.allclose(numpy.asarray(out1[0]), numpy.asarray(out2[0]))
         
-    def test_local_GpuCorr3dMM_to_GpuDnnConv3d(self):
+    def _test_local_GpuCorr3dMM_to_GpuDnnConv3d(self):
         # test an local opt that replace GpuCorr3dMM with GpuDnnConv3d
         kernel_size = [10, 20, 3, 3, 5]
         img_size = [128, 20, 32, 32, 15]

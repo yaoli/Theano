@@ -2150,13 +2150,28 @@ if True:
     @register_opt('cudnn_conv3d')
     @local_optimizer([GpuCorr3dMM_gradWeights])
     def local_GpuCorr3dMMGradW_to_GpuDnnConv3dGradW(node):
+        # this opt replaces GpuCorr3dMM_gradWeights op by GpuDnnConv3dGradW
         if not dnn_available():
             return
         if isinstance(node.op, GpuCorr3dMM_gradWeights):
-            # TODO, no idea how, not familiar enough with all the
-            # data structures around
-            # GpuCorr3dMM_gradWeights and GpuDnnConv3dGradW 
-            return
+            border_mode = node.op.border_mode
+            assert border_mode == 'valid'
+            subsample = node.op.subsample
+            pad = node.op.pad
+            # grad the inputs and output of GpuCorr3dMM_gradWeights op
+            img, grad_top = node.inputs
+            # create a cudnn desc, it expects cbt01
+            img_ = img.dimshuffle(1, 0, 2, 3, 4)
+            gradTop_ = img.dimshuffle(1, 0, 2, 3, 4)
+            # figure out output shape
+            # TODO
+            gpu_alloc_empty(shapes[1], shapes[0], shapes[2], shapes[3], shapes[4])
+            desc = GpuDnnConvDesc(
+                border_mode=pad, subsample=subsample,
+                conv_mode='cross')(img.shape, out.shape)
+            new_op = GpuDnnConv3dGradW()(img_, grad_top_, out, desc)
+            new_op = new_op.dimshuffle() 
+            return [new_op]
 
     @register_opt('cudnn_conv3d')
     @local_optimizer([GpuCorr3dMM_gradInputs])
