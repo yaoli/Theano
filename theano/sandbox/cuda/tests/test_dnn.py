@@ -1225,7 +1225,7 @@ class TestGpuCorr3dMM_to_GpuDnnConv3d(unittest.TestCase):
     def test_local_GpuCorr3dMM_to_GpuDnnConv3d(self):
         # test an local opt that replace GpuCorr3dMM with GpuDnnConv3d
         kernel_size = [10, 20, 3, 3, 5]
-        img_size = [128, 20, 64, 64, 15]
+        img_size = [128, 20, 32, 32, 15]
         img = theano.shared(numpy.random.normal(
                 size=img_size).astype('float32'), name='img')
         kern = theano.shared(numpy.random.normal(

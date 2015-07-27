@@ -2137,10 +2137,14 @@ if True:
             return
         if isinstance(node.op, GpuCorr3dMM):
             border_mode = node.op.border_mode
+            # GpuCorr3dMM only supports valid
+            assert border_mode == 'valid'
             subsample = node.op.subsample
             pad = node.op.pad
             img, kern = node.inputs
-            new_op = dnn_conv3d(img, kern, border_mode, subsample, conv_mode='cross')
+            new_op = dnn_conv3d(
+                img, kern,
+                border_mode=pad, subsample=subsample, conv_mode='cross')
         return [new_op]
 
     @register_opt('cudnn_conv3d')
