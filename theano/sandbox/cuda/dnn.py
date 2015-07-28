@@ -2154,6 +2154,7 @@ if True:
         if not dnn_available():
             return
         if isinstance(node.op, GpuCorr3dMM_gradWeights):
+            import ipdb;ipdb.set_trace()
             border_mode = node.op.border_mode
             assert border_mode == 'valid'
             subsample = node.op.subsample
@@ -2162,14 +2163,20 @@ if True:
             img, grad_top = node.inputs
             # create a cudnn desc, it expects cbt01
             img_ = img.dimshuffle(1, 0, 2, 3, 4)
-            gradTop_ = img.dimshuffle(1, 0, 2, 3, 4)
+            grad_top_ = grad_top.dimshuffle(1, 0, 2, 3, 4)
             # figure out output shape
-            # TODO
-            gpu_alloc_empty(shapes[1], shapes[0], shapes[2], shapes[3], shapes[4])
+            out_shape = grad_top_.shape
+            out = gpu_contiguous(gpu_alloc_empty(
+                out_shape[1], out_shape[0], out_shape[2], out_shape[3], out_shape[4]))
+            # figure out kernel shape
+            kern_shape = 0
+            grad_kern = gpu_contiguous(gpu_alloc_empty(
+                kern_shape[1], kern_shape[0], kern_shape[2], kern_shape[3], kern_shape[4]))
+                
             desc = GpuDnnConvDesc(
                 border_mode=pad, subsample=subsample,
                 conv_mode='cross')(img.shape, out.shape)
-            new_op = GpuDnnConv3dGradW()(img_, grad_top_, out, desc)
+            new_op = GpuDnnConv3dGradW()(img_, grad_top_, grad_kern, desc)
             new_op = new_op.dimshuffle() 
             return [new_op]
 
