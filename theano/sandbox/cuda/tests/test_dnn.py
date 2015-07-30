@@ -1210,8 +1210,8 @@ class TestGpuCorr3dMM_to_GpuDnnConv3d(unittest.TestCase):
                 out = fn(img)
             print 'timing %.4f sec'%(time.time() - t0)
             return out
-        kernel_size = [10, 20, 3, 3, 5]
-        img_size = [128, 20, 64, 64, 15]
+        kernel_size = [10, 20, 5, 3, 3]
+        img_size = [128, 20, 15, 64, 64]
         img = numpy.random.normal(size=img_size).astype('float32')
         print 'compiling conv3d fns'
         fn_dnn, fn_corr3dMM = compile(kernel_size)
@@ -1245,8 +1245,8 @@ class TestGpuCorr3dMM_to_GpuDnnConv3d(unittest.TestCase):
 
     def test_local_GpuCorr3dMMGradW_to_GpuDnnConv3dGradW(self):
         # test an local opt that replace GpuCorr3dMM with GpuDnnConv3d
-        kernel_size = [10, 20, 3, 3, 5]
-        img_size = [128, 20, 64, 64, 15]
+        kernel_size = [10, 20, 5, 3, 3]
+        img_size = [128, 20, 15, 64, 64]
         img = theano.shared(numpy.random.normal(
                 size=img_size).astype('float32'), name='img')
         kern = theano.shared(numpy.random.normal(
