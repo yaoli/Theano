@@ -1254,11 +1254,13 @@ class TestGpuCorr3dMM_to_GpuDnnConv3d(unittest.TestCase):
         out = GpuCorr3dMM(border_mode='valid', subsample=(1, 1, 1),
                            pad=(0, 0, 0))(img, kern)
         gradW = T.grad(T.sum(out), [kern])
-        import pdb; pdb.set_trace()
         # compile with opt 
         f_with_cudnn = theano.function([], gradW, mode=self.mode_with_cudnn)
         f_without_cudnn = theano.function([], gradW, mode=self.mode_without_cudnn)
-        assert numpy.allclose(f_with_cudnn()[0], f_without_cudnn()[0])
+        v1 = f_with_cudnn()[0]
+        v2 = f_without_cudnn()[0]
+        import pdb; pdb.set_trace()
+        assert numpy.allclose(v1, v2)
         
 def test_version():
     if not cuda.dnn.dnn_available():
