@@ -2163,7 +2163,8 @@ if True:
                 img, topgrad = node.inputs
                 kern_shape = []
             else:
-                img, topgrad, kern_shape = node.inputs
+                img, topgrad, kern_x, kern_y, kern_z = node.inputs
+                kern_shape = [kern_x, kern_y, kern_z]
             topgrad_shape = topgrad.shape
             img_shape = img.shape
             # figure out kernel shape
@@ -2172,20 +2173,22 @@ if True:
                 dH, dW, dD = subsample
                 padH, padW, padD = pad
                 def inner(stride_, pad_, topgrad_shp, img_shp):
-                    if pad_ == -2:
-                        k = 2 - img_shp + (topgrad_shp - 1) * stride_
+                    if stride_ != 1:
+                        NotImplementedError('Stride must be 1.')
+                    #if pad_ == -2:
+                    #    k = 2 - img_shp + (topgrad_shp - 1) * stride_
                     else:
                         k = img_shp + 2 * pad_ - (topgrad_shp - 1) * stride_
                     return k
-                kH = inner(dH, padH, img_shape[2], topgrad_shape[2])
-                kW = inner(dW, padW, img_shape[3], topgrad_shape[3])
-                kD = inner(dD, padD, img_shape[4], topgrad_shape[4])
+                kH = inner(dH, padH, topgrad_shape[2], img_shape[2])
+                kW = inner(dW, padW, topgrad_shape[3], img_shape[3])
+                kD = inner(dD, padD, topgrad_shape[4], img_shape[4])
                 return [kH, kW, kD]
             if kern_shape == []:
                 kern_shape = infer_kern_shape(subsample, pad)
             # create a cudnn desc, it expects cbt01
-            img_ = gpu_contiguous(img.dimshuffle(1, 0, 2, 3, 4))
-            topgrad_ = gpu_contiguous(topgrad.dimshuffle(1, 0, 2, 3, 4))
+            img_ = gpu_contiguous(img)
+            topgrad_ = gpu_contiguous(topgrad)
             gradkern = gpu_contiguous(gpu_alloc_empty(
                 topgrad_shape[1], img_shape[1],
                 kern_shape[0], kern_shape[1], kern_shape[2]))
@@ -2193,7 +2196,6 @@ if True:
                 border_mode=pad, subsample=subsample,
                 conv_mode='cross')(img_.shape, gradkern.shape)
             new_op = GpuDnnConv3dGradW()(img_, topgrad_, gradkern, desc)
-            new_op = new_op.dimshuffle(1, 0, 2, 3, 4)
             return [as_cuda_ndarray_variable(new_op)]
 
     @register_opt('cudnn_conv3d')

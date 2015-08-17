@@ -1245,22 +1245,24 @@ class TestGpuCorr3dMM_to_GpuDnnConv3d(unittest.TestCase):
 
     def test_local_GpuCorr3dMMGradW_to_GpuDnnConv3dGradW(self):
         # test an local opt that replace GpuCorr3dMM with GpuDnnConv3d
-        kernel_size = [10, 20, 5, 6, 7]
-        img_size = [128, 20, 8, 9, 10]
-        img = theano.shared(numpy.random.normal(
-                size=img_size).astype('float32'), name='img')
-        kern = theano.shared(numpy.random.normal(
-                size=kernel_size).astype('float32'), name='w')
-        out = GpuCorr3dMM(border_mode='valid', subsample=(1, 1, 1),
-                           pad=(0, 0, 0))(img, kern)
-        gradW = T.grad(T.sum(out), [kern])
-        # compile with opt 
-        f_with_cudnn = theano.function([], gradW, mode=self.mode_with_cudnn)
-        f_without_cudnn = theano.function([], gradW, mode=self.mode_without_cudnn)
-        v1 = f_with_cudnn()[0]
-        v2 = f_without_cudnn()[0]
-        import pdb; pdb.set_trace()
-        assert numpy.allclose(v1, v2)
+        kernels = [[10, 20, 5, 6, 7]] * 3
+        imgs = [[128, 20, 8, 9, 10]] * 3
+        subsamples = [(1, 1, 1), (1, 2, 1), (2, 2, 2)]
+        pads = [(1, 1, 1), (1, 2, 1), (2, 2, 2)]
+        for img_size, kernel_size, subsample, pad in zip(imgs, kernels, subsamples, pads):
+            img = theano.shared(numpy.random.normal(
+                    size=img_size).astype('float32'), name='img')
+            kern = theano.shared(numpy.random.normal(
+                    size=kernel_size).astype('float32'), name='w')
+            out = GpuCorr3dMM(border_mode='valid', subsample=subsample,
+                               pad=pad)(img, kern)
+            gradW = T.grad(T.sum(out), [kern])
+            # compile with opt 
+            f_with_cudnn = theano.function([], gradW, mode=self.mode_with_cudnn)
+            f_without_cudnn = theano.function([], gradW, mode=self.mode_without_cudnn)
+            v1 = f_with_cudnn()[0]
+            v2 = f_without_cudnn()[0]
+            assert numpy.allclose(v1, v2)
         
 def test_version():
     if not cuda.dnn.dnn_available():
